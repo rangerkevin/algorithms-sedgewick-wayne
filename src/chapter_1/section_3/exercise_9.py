@@ -8,16 +8,20 @@ class InfixExpression:
         operands = []
         operators = []
         expression = ''
-        for i in range(len(self.expression)):
+        i = 0
+        while i < len(self.expression):
             if self.expression[i] == '(' or self.expression[i] == ' ':
+                i += 1
                 continue
             elif self.expression[i] in ['+', '-', '*', '/']:
                 operators.append(self.expression[i])
+                i += 1
             elif self.expression[i] == ')':
                 value2 = operands.pop()
                 value1 = operands.pop()
                 op = operators.pop()
                 operands.append('(' + value1 + ' ' + op + ' ' + value2 + ')')
+                i += 1
             else:
                 num = ''
                 while i < len(self.expression) and self.expression[i].isdigit():
@@ -27,5 +31,5 @@ class InfixExpression:
         return operands.pop()
 
 
-infix = InfixExpression('1 + 2 ) * 3 - 4 ) * 5 - 6 ) ) )')
+infix = InfixExpression('345 + 2 ) * 3 - 4 ) * 5 - 6 ) ) )')
 print infix.getInfixExpression()
