@@ -1,0 +1,11 @@
+Exercise 1.4.1
+
+When choosing the first element there are N possibilities.
+When choosing the second element there are N - 1 possibilities. 
+When choosing the third element there are N - 2 possibilities. 
+
+So if the ordering matters, the result would be N * (N - 1) * (N -2). 
+
+However in this case the ordering doesn't matter, and for each three elements combination there would be 3! orders, 3! = 6. 
+
+Thus the final result is N * (N - 1) * (N - 2) / 6. 
