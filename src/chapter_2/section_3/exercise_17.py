@@ -1,6 +1,7 @@
 import random
 import time
 import sys
+import quickSort
 
 class Quick:
 
@@ -40,6 +41,8 @@ class Quick:
         left, right = lo + 1, hi
         
         while True:
+            # No boundary check with the help of sentinels
+            # Thus the running time is the smallest among the three
             while alist[left] < pivot:
                 left += 1
             while alist[right] > pivot:
@@ -79,7 +82,9 @@ class Quick:
 n = 10000
 execTime_a = []
 execTime_b = []
+execTime_c = []
 quick = Quick()
+pquick = quickSort.Quick
 for i in range(10):
     alist = []
     for i in range(n):
@@ -87,6 +92,7 @@ for i in range(10):
     #print(alist)
     random.shuffle(alist)
     blist = list(alist)
+    clist = list(alist)
     start = time.time()
     quick.sort(alist)
     end = time.time()
@@ -95,7 +101,12 @@ for i in range(10):
     quick.sortWithSentinels(blist)
     end = time.time()
     execTime_b.append(end - start)
+    start = time.time()
+    pquick.sort(clist)
+    end = time.time()
+    execTime_c.append(end - start)
     #print(alist)
     
 print("Execution time average for normal quick sort: " + str(sum(execTime_a) / len(execTime_a)) + " seconds.")
 print("Execution time average for quick sort with sentinels: " + str(sum(execTime_b) / len(execTime_b)) + " seconds.")
+print("Execution time average for python quick sort: " + str(sum(execTime_c) / len(execTime_c)) + " seconds.")
