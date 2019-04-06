@@ -1,39 +1,25 @@
-class Node:
-    def __init__(self, key, value, n):
+from BST import *
+
+class Node(Node):
+    def __init__(self, key, value):
         self.key = key
         self.value = value
         self.left = None
         self.right = None
 
-class BST:
+class BST(BinarySearchTree):
     """The general APIs for binary search tree"""
     def __init__(self):
-        self.root = None
+        BinarySearchTree.__init__(self)
         self.capacity = 0
 
     def size(self):
         return self.capacity
 
-    def get(self, key):
-        return self.__get__(self.root, key)
-
-    def __get__(self, node, key):
-        if node is None:
-            return None
-        if node.key < key:
-            return self.get(node.right, key)
-        elif node.key > key:
-            return self.get(node.left, key)
-        else:
-            return node.value
-
-    def put(self, key, value):
-        self.root = self.__put__(self.root, key, value)
-
     def __put__(self, node, key, value):
         if node is None:
             self.capacity += 1
-            return Node(key, value, 1)
+            return Node(key, value)
         if node.key < key:
             node.right = self.__put__(node.right, key, value)
         elif node.key > key:
@@ -41,61 +27,6 @@ class BST:
         else:
             node.value = value
         return node
-
-    def min(self):
-        return self.__min__(self.root).key
-
-    def __min__(self, node):
-        if node.left is None:
-            return node
-        return self.__min__(node.left)
-
-    def max(self):
-        return self.__max__(self.root).key
-
-    def __max__(self, node):
-        if node.right is None:
-            return node
-        return self.__max__(node.right)
-
-    def floor(self, key):
-        node = self.__floor__(self.root, key)
-        if node is None:
-            return None
-        return node.key
-
-    def __floor__(self, node, key):
-        if node is None:
-            return None
-        if node.key == key:
-            return node
-        elif node.key > key:
-            return self.__floor__(node.left, key)
-        node_t = self.__floor__(node.right, key)
-        if node_t is not None:
-            return node_t
-        return node
-
-    def ceiling(self, key):
-        node = self.__ceiling__(self.root, key)
-        if node is None:
-            return None
-        return node.key
-
-    def __ceiling__(self, node, key):
-        if node is None:
-            return None
-        if node.key == key:
-            return node
-        elif node.key < key:
-            return self.__ceiling__(node.right, key)
-        node_t = self.__ceiling__(node.left, key)
-        if node_t is not None:
-            return node_t
-        return node
-
-    def deleteMin(self):
-        self.root = self.__deleteMin__(self.root)
 
     def __deleteMin__(self, node):
         if node is None:
@@ -106,9 +37,6 @@ class BST:
         node.left = self.__deleteMin__(node.left)
         return node
 
-    def deleteMax(self):
-        self.root = self.__deleteMax__(self.root)
-
     def __deleteMax__(self, node):
         if node is None:
             return None
@@ -117,9 +45,6 @@ class BST:
             return node.left
         node.right = self.__deleteMax__(node.right)
         return node
-
-    def delete(self, key):
-        self.root = self.__delete__(self.root, key)
 
     # Hibbard delete
     def __delete__(self, node, key):

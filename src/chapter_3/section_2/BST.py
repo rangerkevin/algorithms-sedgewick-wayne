@@ -6,7 +6,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BST:
+class BinarySearchTree:
     """The general APIs for binary search tree"""
     def __init__(self):
         self.root = None
@@ -130,10 +130,24 @@ class BST:
         self.root = self.__deleteMin__(self.root)
 
     def __deleteMin__(self, node):
+        if node is None:
+            return None
         if node.left is None:
             return node.right
         node.left = self.__deleteMin__(node.left)
         node.N = self.__size__(node.left) + self.__size__(node.right) + 1
+        return node
+
+    def deleteMax(self):
+        self.root = self.__deleteMax__(self.root)
+
+    def __deleteMax__(self, node):
+        if node is None:
+            return None
+        if node.right is None:
+            self.capacity -= 1
+            return node.left
+        node.right = self.__deleteMax__(node.right)
         return node
 
     def delete(self, key):
