@@ -16,6 +16,8 @@ class Quick:
     def sortHelper(self, alist, lo, hi, insert):
         if hi <= lo:
             return 
+        # When the length of subarray is less then the CUT_OFF value
+        # Switch to insertion sort
         if hi - lo + 1 < self.CUT_OFF:
             insert.sort(alist, lo, hi)
             return
