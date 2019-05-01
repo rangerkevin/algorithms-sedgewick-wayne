@@ -145,9 +145,9 @@ class BinarySearchTree:
         if node is None:
             return None
         if node.right is None:
-            self.capacity -= 1
             return node.left
         node.right = self.__deleteMax__(node.right)
+        node.N = self.__size__(node.left) + self.__size__(node.right) + 1
         return node
 
     def delete(self, key):
